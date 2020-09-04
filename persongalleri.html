@@ -3,52 +3,111 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>JSON</title>
+    <title>Persongalleri</title>
     <style>
+        body {
+            background color: white;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
         article {
-            border: 1px solid #333;
+            background-color: white;
             padding: 10px;
         }
 
         img {
-            max-width: 30%;
+            max-width: 100%;
+            align-content: center;
         }
 
+        section {
+            background-color: white;
+            display: grid;
+            grid-gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 100px;
+            margin-bottom: 50px;
+            background-color: white;
+            padding: 30px;
+
+
+        }
+
+        h2 {
+            text-align: center;
+
+        }
+
+
+
+        footer h3 {
+            margin: 50px;
+            text-align: center;
+        }
+
+
+
+        h1,
+        h2,
+        h3,
+        p {
+            font-family: cursive;
+        }
     </style>
 </head>
 
 <body>
-    <section>
 
+    <h1>Persongalleri</h1>
+    <section>
+        <template>
+            <article>
+                <h2 class="navn"></h2>
+                <h3 class="efternavn"></h3>
+                <img src="" alt="">
+                <p class="køn"></p>
+                <p class="alder"></p>
+                <p class="religion"></p>
+                <p class="hobby"></p>
+                <p class="kæledyr"></p>
+                <p class="job"></p>
+                <p class="by"></p>
+                <p class="land"></p>
+
+
+
+            </article>
+        </template>
     </section>
 
-    <template>
-        <article>
-            <h2></h2>
-            <img src="" alt="">
-            <p class="navn"></p>
-            <p class="efternavn"></p>
-            <p class="alder"></p>
-            <p class="religion"></p>
-
-
-        </article>
-    </template>
+    <footer>
+        <h2>Af Sara Thomsen</h2>
+    </footer>
 
     <script>
-        let container = document.querySelector("section");
-        let temp = document.querySelector("template");
-
         const link = "https://spreadsheets.google.com/feeds/list/1mtHhpoEkYqVqr1TSnKQ1_sQZWI7FRVjcw3H1oatDOVQ/od6/public/values?alt=json";
 
-        async function hentdata() {
-            const respons = await fetch(link);
-            const json = await respons.json();
+        async function hentdata(link) {
+            const response = await fetch(link);
+            const json = await response.json();
+            console.log(json);
             vis(json);
+
         }
 
         function vis(personer) {
             console.log(personer);
+
+            let container = document.querySelector("section");
+            let temp = document.querySelector("template");
+
             //løb igennem array "personer"
             personer.feed.entry.forEach(person => {
                 const klon = temp.cloneNode(true).content;
@@ -62,9 +121,6 @@
             })
         }
 
-        hentdata();
-
+        hentdata(link);
     </script>
-</body>
-
-</html>
+</body></html>
